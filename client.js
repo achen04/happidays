@@ -1,11 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
 chrome.management.getAll(getAllCallback);
-document.getElementById("textData").addEventListener("keypress", function (e) {
-	var key = e.which || e.keyCode;
-	 if (key === 13) { // 13 is enter
-		 clientSubmit();
-	 }
-});
+document.getElementById("textData").addEventListener("blur", clientSubmit);
+
 });
 
 
@@ -17,6 +13,10 @@ var getAllCallback = function(list) {
 
 function clientSubmit() {
 	var data = document.getElementById("textData").value;
-	console.log(data);
+	// console.log(data);
+	var userDat = getUserData();
+	// var userData = getUserDataFromServer(userId);
+	console.log("Returned " + userDat);
+
 	// document.getElementById("uInput").innerHTML = data;
 }

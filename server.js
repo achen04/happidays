@@ -1,5 +1,3 @@
-var myKey = config.KEY;
-
 document.addEventListener("DOMContentLoaded", function() {
 	chrome.management.getAll(getAllCallback);
 	document.getElementById("textData").addEventListener("blur", submitData);
@@ -16,9 +14,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	});
 
 	// Initialize community posts
-
-
-
 	chrome.storage.sync.get("description", function(getdata) {
 		console.log("GETTING FROM DATABASE", getdata.description);
 		if (getdata) {
@@ -27,12 +22,11 @@ document.addEventListener("DOMContentLoaded", function() {
 	});
 
 	getUserData();
-	getCommunityData();
 });
 
-var getAllCallback = function(list) {
-	console.log(list); // information about the window (google API response)
-};
+// var getAllCallback = function(list) {
+// 	console.log(list); // information about the window (google API response)
+// };
 
 
 function getRandomToken() {
@@ -73,13 +67,12 @@ function submitData() {
 
 function postData(userid, data) {
 	// SENDING POST REQUEST TO MLAB
+	var myKey = config.KEY;
 
 	console.log("HERE", userid);
 	var http = new XMLHttpRequest();
-
 	var url = "https://api.mlab.com/api/1/databases/happidays/collections/testing?apiKey=" + myKey;
-	var postData = JSON.stringify( {userid: userid, description: data, date: new Date(), rating: 0} );
-
+	var postData = JSON.stringify( {userid: userid, description: data, date: new Date()} );
 	http.open("POST", url, true);
 	http.setRequestHeader("Content-type", "application/json");
 
@@ -107,7 +100,7 @@ function getUserData() {
 function getUserDataFromServer(userid) {
 	var xhr = new XMLHttpRequest();
 	var userid = JSON.stringify(userid);
-	var url = "https://api.mlab.com/api/1/databases/happidays/collections/testing?q={'userid':" + userid + "}&s={'date': -1}&apiKey=" +myKey;
+	var url = "https://api.mlab.com/api/1/databases/happidays/collections/testing?q={'userid':" + userid + "}&s={'date': -1}&apiKey=aUoDYGZ16JJeewazabXIAE11PWU7I1ag";
 	xhr.open("GET", url, true);
 	xhr.onreadystatechange = function() {
 	  if (xhr.readyState == 4) {
@@ -121,19 +114,4 @@ function getUserDataFromServer(userid) {
 
 function displayUserData(data) {
 
-}
-
-
-function getCommunityData() {
-	var xhr = new XMLHttpRequest();
-	var url = "https://api.mlab.com/api/1/databases/happidays/collections/testing?&s={'rating': 1}&apiKey=" +myKey;
-	xhr.open("GET", url, true);
-	xhr.onreadystatechange = function() {
-	  if (xhr.readyState == 4) {
-	    var resp = JSON.parse(xhr.responseText);
-	    displayUserData(resp);
-	    console.log("community data IS", resp);
-	  }
-	}
-	xhr.send();
 }

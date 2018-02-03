@@ -10,6 +10,10 @@ h1 {
   text-align: center;
 }
 
+.personalQuotes {
+  padding-left: 150px;
+}
+
 input {border : 1px solid #fff;margin:0; font-size:20px; }
 input:focus,input:active,input:hover { outline: 1px solid #eee; background-color:#eee; }
 select { border: 1px solid #fff; margin:0; padding:0; font-size:20px; border:0;
