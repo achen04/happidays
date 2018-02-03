@@ -64,9 +64,11 @@ function submitData() {
 
 function postData(userid, data) {
 	// SENDING POST REQUEST TO MLAB
+	var myKey = config.KEY;
+
 	console.log("HERE", userid);
 	var http = new XMLHttpRequest();
-	var url = "https://api.mlab.com/api/1/databases/happidays/collections/testing?apiKey=aUoDYGZ16JJeewazabXIAE11PWU7I1ag";
+	var url = "https://api.mlab.com/api/1/databases/happidays/collections/testing?apiKey=" + myKey;
 	var postData = JSON.stringify( {userid: userid, description: data} );
 	http.open("POST", url, true);
 	http.setRequestHeader("Content-type", "application/json");
@@ -79,5 +81,3 @@ function postData(userid, data) {
 	}
 	http.send(postData);
 }
-
-
