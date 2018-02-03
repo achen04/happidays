@@ -133,9 +133,11 @@ function getCommunityData() {
 	xhr.onreadystatechange = function() {
 	  if (xhr.readyState == 4) {
 	    var resp = JSON.parse(xhr.responseText);
-	    // displayCommunityData(resp);
+	    displayCommunityData(resp);
 
 	  }
 	}
 	xhr.send();
 }
+
+
