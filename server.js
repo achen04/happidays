@@ -73,7 +73,7 @@ function postData(userid, data) {
 	console.log("HERE", userid);
 	var http = new XMLHttpRequest();
 	var url = "https://api.mlab.com/api/1/databases/happidays/collections/testing?apiKey=aUoDYGZ16JJeewazabXIAE11PWU7I1ag";
-	var postData = JSON.stringify( {userid: userid, description: data, date: new Date()} );
+	var postData = JSON.stringify( {userid: userid, description: data, date: new Date(), rating: 0} );
 	http.open("POST", url, true);
 	http.setRequestHeader("Content-type", "application/json");
 
@@ -114,5 +114,10 @@ function getUserDataFromServer(userid) {
 }
 
 function displayUserData(data) {
+
+}
+
+
+function getCommunityData() {
 
 }
