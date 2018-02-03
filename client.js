@@ -21,6 +21,10 @@ function clientSubmit() {
 	// document.getElementById("uInput").innerHTML = data;
 }
 
+function parseDate(date1) {
+	return (new Date(date1).toString()).split(/\s+/).slice(0,3).join(" ");
+}
+
 
 function displayUserData(data) {
 	console.log("-=-=-=-=", data);
@@ -30,14 +34,11 @@ function displayUserData(data) {
 	document.getElementById('card4').innerHTML = data[3].description;
 	document.getElementById('card5').innerHTML = data[4].description;
 
-	document.getElementById('card1_date').innerHTML = data[0].date;
-	document.getElementById('card2_date').innerHTML = data[1].date;
-	document.getElementById('card3_date').innerHTML = data[2].date;
-	document.getElementById('card4_date').innerHTML = data[3].date;
-	document.getElementById('card5_date').innerHTML = data[4].date;
+	document.getElementById('card1_date').innerHTML = parseDate(data[0].date);
+	document.getElementById('card2_date').innerHTML = parseDate(data[1].date);
+	document.getElementById('card3_date').innerHTML = parseDate(data[2].date);
+	document.getElementById('card4_date').innerHTML = parseDate(data[3].date);
+	document.getElementById('card5_date').innerHTML = parseDate(data[4].date);
 
-	var date1 = (new Date(data[0].date));
-	console.log("Hello how are you now w w w".split(/\s+/).slice(0,5).join(" "));
-
-
+	console.log()
 }
