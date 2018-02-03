@@ -55,31 +55,31 @@ function submitData() {
 	var date = new Date();
 	date.setHours(0,0,0,0);
 
+	if (data != "") {
+		chrome.storage.sync.get('userid', function(items) {
+			var userid = items.userid;
+			// STORING IN SERVER
+			postData(userid, data);
+		});
 
-	chrome.storage.sync.get('userid', function(items) {
-		var userid = items.userid;
-		// STORING IN SERVER
-		postData(userid, data);
-	});
 
+		// STORING IN LOCAL CHROME STORAGE
+	    chrome.storage.sync.set({'description': data}, function() {
+	    });
+	    chrome.storage.sync.set({'date': String(date)}, function() {
+	      // Notify that we saved.
+	      console.log('Settings saved as', String(date));
+	    });
 
-	// STORING IN LOCAL CHROME STORAGE
-    chrome.storage.sync.set({'description': data}, function() {
-    });
-    chrome.storage.sync.set({'date': String(date)}, function() {
-      // Notify that we saved.
-      console.log('Settings saved as', String(date));
-    });
+	    getUserData();
+		console.log(data);
 
-    getUserData();
-	console.log(data);
-
+	}
 }
 
 function postData(userid, data) {
 	// SENDING POST REQUEST TO MLAB
 
-	console.log("HERE", userid);
 	var http = new XMLHttpRequest();
 
 	var url = "https://api.mlab.com/api/1/databases/happidays/collections/testing?apiKey=" + myKey;
@@ -118,7 +118,6 @@ function getUserDataFromServer(userid) {
 	  if (xhr.readyState == 4) {
 	    var resp = JSON.parse(xhr.responseText);
 	    displayUserData(resp);
-
 	  }
 	}
 	xhr.send();
@@ -140,4 +139,27 @@ function getCommunityData() {
 	xhr.send();
 }
 
+
+function addRating(num) {
+	// Get data to find which one to add rating to
+	var xhr = new XMLHttpRequest();
+	var url = "https://api.mlab.com/api/1/databases/happidays/collections/testing?&s={'rating': 1}&apiKey=" + myKey;
+	xhr.open("GET", url, true);
+	xhr.onreadystatechange = function() {
+	  if (xhr.readyState == 4) {
+	    var resp = JSON.parse(xhr.responseText);
+	    var elementToAddRating = resp[num];
+
+
+		$.ajax( { url: "https://api.mlab.com/api/1/databases/happidays/collections/testing/" + elementToAddRating._id + "?apiKey=" + myKey,
+		  data: JSON.stringify( { "$set" : { "rating" : elementToAddRating.rating + 1 } } ),
+		  type: "PUT",
+		  contentType: "application/json" } );
+
+	  }
+	}
+	xhr.send();
+
+
+}
 
