@@ -156,7 +156,7 @@ function addRating(num) {
 		  contentType: "application/json" } );
 
 		getCommunityData();
-		console.log("our elememnt is", elementToAddRating.description);
+		console.log("our elememnt is", elementToAddRating.rating);
 
 	  }
 	}
@@ -164,4 +164,3 @@ function addRating(num) {
 
 
 }
-
