@@ -15,16 +15,30 @@ document.addEventListener("DOMContentLoaded", function() {
 	    }
 	});
 
-	// Initialize community posts
 
+    // Only wait the description to show up of the same day
 
+    // THIS PART NOT WORKING YET
+    var d = new Date();
+    d.setHours(0,0,0,0)
 
-	chrome.storage.sync.get("description", function(getdata) {
-		console.log("GETTING FROM DATABASE", getdata.description);
-		if (getdata) {
-			document.getElementById("textData").value = getdata.description;
+    chrome.storage.sync.get(null, function(data) {
+    	console.log("-----", data);
+    })
+
+	chrome.storage.sync.get("description", function(getDescription) {
+		if (getDescription) {
+			chrome.storage.sync.get("date", function(getDate) {
+				console.log(getDate);
+				if (d == getDate.date) {
+					document.getElementById("textData").value = getDescription.description;
+				}
+			});
 		}
 	});
+
+
+	// Initialize community posts
 
 	getUserData();
 	getCommunityData();
@@ -51,9 +65,12 @@ function getRandomToken() {
 
 function submitData() {
 	var data = document.getElementById("textData").value;
-	var userid;
+	var date = new Date();
+	date.setHours(0,0,0,0);
+
+
 	chrome.storage.sync.get('userid', function(items) {
-		userid = items.userid;
+		var userid = items.userid;
 		// STORING IN SERVER
 		postData(userid, data);
 	});
@@ -61,10 +78,11 @@ function submitData() {
 
 	// STORING IN LOCAL CHROME STORAGE
     chrome.storage.sync.set({'description': data}, function() {
-      // Notify that we saved.
-      console.log('Settings saved');
     });
-
+    chrome.storage.sync.set({'date': String(date)}, function() {
+      // Notify that we saved.
+      console.log('Settings saved as', String(date));
+    });
 
     getUserData();
 	console.log(data);
