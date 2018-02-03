@@ -20,3 +20,9 @@ function clientSubmit() {
 
 	// document.getElementById("uInput").innerHTML = data;
 }
+
+
+function displayUserData(data) {
+	console.log("-=-=-=-=", data);
+
+}

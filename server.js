@@ -132,14 +132,12 @@ function getUserDataFromServer(userid) {
 	    var resp = JSON.parse(xhr.responseText);
 	    displayUserData(resp);
 	    console.log("RESPONSE IS", resp);
+
 	  }
 	}
 	xhr.send();
 }
 
-function displayUserData(data) {
-
-}
 
 
 function getCommunityData() {
