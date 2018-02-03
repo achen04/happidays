@@ -1,14 +1,9 @@
 document.addEventListener("DOMContentLoaded", function() {
-chrome.management.getAll(getAllCallback);
 document.getElementById("textData").addEventListener("blur", clientSubmit);
 
 });
 
 
-
-var getAllCallback = function(list) {
-	console.log(list); // information about the window (google API response)
-};
 
 
 function clientSubmit() {
@@ -28,17 +23,31 @@ function parseDate(date1) {
 
 function displayUserData(data) {
 	console.log("-=-=-=-=", data);
-	document.getElementById('card1').innerHTML = data[0].description;
-	document.getElementById('card2').innerHTML = data[1].description;
-	document.getElementById('card3').innerHTML = data[2].description;
-	document.getElementById('card4').innerHTML = data[3].description;
-	document.getElementById('card5').innerHTML = data[4].description;
 
-	document.getElementById('card1_date').innerHTML = parseDate(data[0].date);
-	document.getElementById('card2_date').innerHTML = parseDate(data[1].date);
-	document.getElementById('card3_date').innerHTML = parseDate(data[2].date);
-	document.getElementById('card4_date').innerHTML = parseDate(data[3].date);
-	document.getElementById('card5_date').innerHTML = parseDate(data[4].date);
 
-	console.log()
+	if (data.length > 0) {
+		document.getElementById('card1').innerHTML = data[0].description;
+		document.getElementById('card1_date').innerHTML = parseDate(data[0].date);
+	} 
+
+	if (data.length > 1) {
+		document.getElementById('card2').innerHTML = data[1].description;
+		document.getElementById('card2_date').innerHTML = parseDate(data[1].date);
+	}
+
+	if (data.length > 2) {
+		document.getElementById('card3').innerHTML = data[2].description;
+		document.getElementById('card3_date').innerHTML = parseDate(data[2].date);
+	}
+
+	if (data.length > 3) {
+		document.getElementById('card4').innerHTML = data[3].description;
+		document.getElementById('card4_date').innerHTML = parseDate(data[3].date);
+	}
+
+	if (data.length > 4) {
+		document.getElementById('card5').innerHTML = data[4].description;
+		document.getElementById('card5_date').innerHTML = parseDate(data[4].date);
+	}
+
 }

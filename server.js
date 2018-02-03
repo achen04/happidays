@@ -1,7 +1,6 @@
 var myKey = config.KEY;
 
 document.addEventListener("DOMContentLoaded", function() {
-	chrome.management.getAll(getAllCallback);
 	document.getElementById("textData").addEventListener("blur", submitData);
 
 	// Initialize userid
@@ -16,20 +15,12 @@ document.addEventListener("DOMContentLoaded", function() {
 	});
 
 
-    // Only wait the description to show up of the same day
-
-    // THIS PART NOT WORKING YET
     var d = new Date();
     d.setHours(0,0,0,0)
-
-    chrome.storage.sync.get(null, function(data) {
-    	console.log("-----", data);
-    })
 
 	chrome.storage.sync.get("description", function(getDescription) {
 		if (getDescription) {
 			chrome.storage.sync.get("date", function(getDate) {
-				console.log(getDate);
 				if (d == getDate.date) {
 					document.getElementById("textData").value = getDescription.description;
 				}
@@ -38,15 +29,11 @@ document.addEventListener("DOMContentLoaded", function() {
 	});
 
 
-	// Initialize community posts
-
+	// Initialize user and community posts
 	getUserData();
 	getCommunityData();
 });
 
-var getAllCallback = function(list) {
-	console.log(list); // information about the window (google API response)
-};
 
 
 function getRandomToken() {
@@ -114,7 +101,7 @@ function postData(userid, data) {
 function getUserData() {
 	chrome.storage.sync.get('userid', function(items) {
 		userid = items.userid;
-		// STORING IN SERVER
+		// GETTING FROM SERVER
 		getUserDataFromServer(userid);
 	});
 
@@ -131,7 +118,6 @@ function getUserDataFromServer(userid) {
 	  if (xhr.readyState == 4) {
 	    var resp = JSON.parse(xhr.responseText);
 	    displayUserData(resp);
-	    console.log("RESPONSE IS", resp);
 
 	  }
 	}
@@ -148,7 +134,7 @@ function getCommunityData() {
 	  if (xhr.readyState == 4) {
 	    var resp = JSON.parse(xhr.responseText);
 	    // displayCommunityData(resp);
-	    console.log("community data IS", resp);
+
 	  }
 	}
 	xhr.send();
