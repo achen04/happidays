@@ -1,24 +1,30 @@
 document.addEventListener("DOMContentLoaded", function() {
-chrome.management.getAll(getAllCallback);
-document.getElementById("textData").addEventListener("blur", submitData);
+	chrome.management.getAll(getAllCallback);
+	document.getElementById("textData").addEventListener("blur", submitData);
+
+	// Initialize userid
+	chrome.storage.sync.get('userid', function(items) {
+	    var userid = items.userid;
+	    if (!userid) {
+	        userid = getRandomToken();
+	        chrome.storage.sync.set({userid: userid}, function() {
+	            console.log("user id is", userid);
+	        });
+	    }
+	});
+
+	// Initialize community posts
 
 
-chrome.storage.sync.get('userid', function(items) {
-    var userid = items.userid;
-    if (!userid) {
-        userid = getRandomToken();
-        chrome.storage.sync.set({userid: userid}, function() {
-            console.log("user id is", userid);
-        });
-    }
-});
 
+	chrome.storage.sync.get("description", function(getdata) {
+		console.log("GETTING FROM DATABASE", getdata.description); 
+		if (getdata) {
+			document.getElementById("textData").value = getdata.description;
+		}
+	});
 
-chrome.storage.sync.get("description", function(getdata) {
-	console.log("GETTING FROM DATABASE", getdata.description); // make this show up in frontend
-	// TODO: deal with case of when nothing has been submitted yet
-})
-
+	getUserData();
 });
 
 var getAllCallback = function(list) {
@@ -57,7 +63,7 @@ function submitData() {
     });
 
 
-
+    getUserData();
 	console.log(data);
 
 }
@@ -67,7 +73,7 @@ function postData(userid, data) {
 	console.log("HERE", userid);
 	var http = new XMLHttpRequest();
 	var url = "https://api.mlab.com/api/1/databases/happidays/collections/testing?apiKey=aUoDYGZ16JJeewazabXIAE11PWU7I1ag";
-	var postData = JSON.stringify( {userid: userid, description: data} );
+	var postData = JSON.stringify( {userid: userid, description: data, date: new Date()} );
 	http.open("POST", url, true);
 	http.setRequestHeader("Content-type", "application/json");
 
@@ -80,4 +86,33 @@ function postData(userid, data) {
 	http.send(postData);
 }
 
+// Fetches data from remote db and displays most recent ones
+function getUserData() {
+	chrome.storage.sync.get('userid', function(items) {
+		userid = items.userid;
+		// STORING IN SERVER
+		getUserDataFromServer(userid);
+	});
 
+
+}
+
+// Getting user data from mlab sorted by most recent ones
+function getUserDataFromServer(userid) {
+	var xhr = new XMLHttpRequest();
+	var userid = JSON.stringify(userid);
+	var url = "https://api.mlab.com/api/1/databases/happidays/collections/testing?q={'userid':" + userid + "}&s={'date': -1}&apiKey=aUoDYGZ16JJeewazabXIAE11PWU7I1ag";
+	xhr.open("GET", url, true);
+	xhr.onreadystatechange = function() {
+	  if (xhr.readyState == 4) {
+	    var resp = JSON.parse(xhr.responseText);
+	    displayUserData(resp);
+	    console.log("RESPONSE IS", resp);
+	  }
+	}
+	xhr.send();
+}
+
+function displayUserData(data) {
+
+}
