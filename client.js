@@ -3,6 +3,29 @@ document.getElementById("textData").addEventListener("blur", clientSubmit);
 
 });
 
+var com_cards = ["com_card1", "com_card2", "com_card3", "com_card4", "com_card5"]
+
+$(document).ready(function(){
+    $("#com_card1").hover(function(){
+        $(this).css("background-color", "blue");
+        }, function(){
+        $(this).css("background-color", "pink");
+    });
+
+    // Add rating when like
+    $("button").click(function(){
+    	var elementID = $(this).prev().attr('id');
+    	for (var i = 0; i < 5; i++) {
+    		if (elementID == com_cards[i]) {
+    			addRating(i);
+    		}
+    	}
+    });
+
+
+});
+
+
 
 
 
@@ -11,9 +34,6 @@ function clientSubmit() {
 	// console.log(data);
 	var userDat = getUserData();
 	// var userData = getUserDataFromServer(userId);
-	console.log("Returned " + userDat);
-
-	// document.getElementById("uInput").innerHTML = data;
 }
 
 function parseDate(date1) {

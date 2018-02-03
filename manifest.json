@@ -3,6 +3,10 @@
     "name": "happiDays",
     "description": "Every day is a happiDay",
     "version": "0.0.0.1",
+    "content_scripts": [{
+     "js": ["jquery-3.3.1.min.js", "server.js", "client.js", "fontawesome-all.js"],
+     "matches": ["http://*/*", "https://*/*"]
+   }],
     "permissions" : [
     	"management",
     	"https://api.mlab.com/",
