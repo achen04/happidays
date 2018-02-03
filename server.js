@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
 chrome.management.getAll(getAllCallback);
-document.getElementById("myButton").addEventListener("click", submitData);
+document.getElementById("textData").addEventListener("blur", submitData);
 
 
 chrome.storage.sync.get('userid', function(items) {
