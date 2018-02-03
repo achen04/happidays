@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 	chrome.storage.sync.get("description", function(getdata) {
-		console.log("GETTING FROM DATABASE", getdata.description); 
+		console.log("GETTING FROM DATABASE", getdata.description);
 		if (getdata) {
 			document.getElementById("textData").value = getdata.description;
 		}
@@ -70,10 +70,14 @@ function submitData() {
 
 function postData(userid, data) {
 	// SENDING POST REQUEST TO MLAB
+	var myKey = config.KEY;
+
 	console.log("HERE", userid);
 	var http = new XMLHttpRequest();
-	var url = "https://api.mlab.com/api/1/databases/happidays/collections/testing?apiKey=aUoDYGZ16JJeewazabXIAE11PWU7I1ag";
+
+	var url = "https://api.mlab.com/api/1/databases/happidays/collections/testing?apiKey=" + myKey;
 	var postData = JSON.stringify( {userid: userid, description: data, date: new Date(), rating: 0} );
+
 	http.open("POST", url, true);
 	http.setRequestHeader("Content-type", "application/json");
 

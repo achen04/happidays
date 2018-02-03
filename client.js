@@ -1,6 +1,11 @@
 document.addEventListener("DOMContentLoaded", function() {
 chrome.management.getAll(getAllCallback);
-document.getElementById("textData").addEventListener("blur", clientSubmit);
+document.getElementById("textData").addEventListener("keypress", function (e) {
+	var key = e.which || e.keyCode;
+	 if (key === 13) { // 13 is enter
+		 clientSubmit();
+	 }
+});
 });
 
 
