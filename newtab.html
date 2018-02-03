@@ -1,21 +1,14 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        chrome.management.getAll(getAllCallback);
-      });
-
-      var getAllCallback = function(list) {
-        // TODO: Something Awesome
-      };
-    </script>
+    <script src="server.js"></script>
   </head>
   <body>
     <div id="main">
       <div class="title">
-        <h1>What makes you happy?</h1>
-         <input type="text" name="fname">
+        <h1>What makes you happy?</h1>   
+          <input type="text" name="textData" id="textData"><br>
+          <input type="submit" value="Submit" id="myButton">
       </div>
 
     </div>
