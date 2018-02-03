@@ -1,8 +1,16 @@
 body {
+  background-image: url("https://picsum.photos/1000/500/?random");
+  background-repeat: no-repeat;;
+  background-size: cover;
+
 }
 
 h1 {
   text-align: center;
+  color: white !important;
+  font-weight: 400;
+  font-size: 90px !important;
+
 }
 
 .title {
@@ -10,12 +18,23 @@ h1 {
   text-align: center;
 }
 
+.card {
+  border-radius: 10px !important;
+}
+
+.textData {
+  width: 500px;
+  text-align: center;
+  background: none;
+  border: none;
+}
+
 .personalQuotes {
   padding-left: 150px;
 }
 
 input {border : 1px solid #fff;margin:0; font-size:20px; }
-input:focus,input:active,input:hover { outline: 1px solid #eee; background-color:#eee; }
+/*input:focus,input:active,input:hover { outline: 1px solid #eee; background-color:#eee; }*/
 select { border: 1px solid #fff; margin:0; padding:0; font-size:20px; border:0;
  -webkit-appearance: none;
  -moz-appearance: none;
