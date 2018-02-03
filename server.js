@@ -147,7 +147,7 @@ function getCommunityData() {
 	xhr.onreadystatechange = function() {
 	  if (xhr.readyState == 4) {
 	    var resp = JSON.parse(xhr.responseText);
-	    displayUserData(resp);
+	    // displayCommunityData(resp);
 	    console.log("community data IS", resp);
 	  }
 	}
