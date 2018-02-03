@@ -6,11 +6,13 @@ document.getElementById("textData").addEventListener("blur", clientSubmit);
 var com_cards = ["com_card1", "com_card2", "com_card3", "com_card4", "com_card5"]
 
 $(document).ready(function(){
+
+	/*
     $("#com_card1").hover(function(){
         $(this).css("background-color", "blue");
         }, function(){
         $(this).css("background-color", "pink");
-    });
+    }); */
 
     // Add rating when like
     $("button").click(function(){

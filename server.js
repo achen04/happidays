@@ -127,7 +127,7 @@ function getUserDataFromServer(userid) {
 
 function getCommunityData() {
 	var xhr = new XMLHttpRequest();
-	var url = "https://api.mlab.com/api/1/databases/happidays/collections/testing?&s={'rating': 1}&apiKey=" +myKey;
+	var url = "https://api.mlab.com/api/1/databases/happidays/collections/testing?&s={'rating': -1}&apiKey=" +myKey;
 	xhr.open("GET", url, true);
 	xhr.onreadystatechange = function() {
 	  if (xhr.readyState == 4) {
@@ -143,18 +143,20 @@ function getCommunityData() {
 function addRating(num) {
 	// Get data to find which one to add rating to
 	var xhr = new XMLHttpRequest();
-	var url = "https://api.mlab.com/api/1/databases/happidays/collections/testing?&s={'rating': 1}&apiKey=" + myKey;
+	var url = "https://api.mlab.com/api/1/databases/happidays/collections/testing?&s={'rating': -1}&apiKey=" + myKey;
 	xhr.open("GET", url, true);
 	xhr.onreadystatechange = function() {
 	  if (xhr.readyState == 4) {
 	    var resp = JSON.parse(xhr.responseText);
 	    var elementToAddRating = resp[num];
-
-
-		$.ajax( { url: "https://api.mlab.com/api/1/databases/happidays/collections/testing/" + elementToAddRating._id + "?apiKey=" + myKey,
+	    var elemId = elementToAddRating._id;
+		$.ajax( { url: "https://api.mlab.com/api/1/databases/happidays/collections/testing/" + elemId.$oid + "?apiKey=" + myKey,
 		  data: JSON.stringify( { "$set" : { "rating" : elementToAddRating.rating + 1 } } ),
 		  type: "PUT",
 		  contentType: "application/json" } );
+
+		getCommunityData();
+		console.log("our elememnt is", elementToAddRating.description);
 
 	  }
 	}
