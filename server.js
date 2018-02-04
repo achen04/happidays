@@ -67,35 +67,50 @@ function submitData() {
 	    chrome.storage.sync.set({'description': data}, function() {
 	    });
 	    chrome.storage.sync.set({'date': String(date)}, function() {
-	      // Notify that we saved.
-	      console.log('Settings saved as', String(date));
 	    });
-
-	    getUserData();
-		console.log(data);
 
 	}
 }
 
 function postData(userid, data) {
-	// SENDING POST REQUEST TO MLAB
+	// Check if data has already been posted
+	var exists = false;
 
-	var http = new XMLHttpRequest();
+	var xhr = new XMLHttpRequest();
+	var string_userid = JSON.stringify(userid);
+	var url = "https://api.mlab.com/api/1/databases/happidays/collections/testing?q={'userid':" + string_userid + "}&apiKey=" +myKey;
+	xhr.open("GET", url, true);
+	xhr.onreadystatechange = function() {
+	  if (xhr.readyState == 4) {
+	    var resp = JSON.parse(xhr.responseText);
 
-	var url = "https://api.mlab.com/api/1/databases/happidays/collections/testing?apiKey=" + myKey;
-	var postData = JSON.stringify( {userid: userid, description: data, date: new Date(), rating: 0} );
+	    for (var i = 0; i < resp.length; i++) {
+			if (resp[i].description == data) {
+				exists = true;
+			}
+		}
 
-	http.open("POST", url, true);
-	http.setRequestHeader("Content-type", "application/json");
 
-	http.onreadystatechange = function() { //Call a function when the state changes.
-	    if(http.readyState == 4 && http.status == 200) {
-	       // when this is done posting, what should we do?
-	       // alert(http.responseText);
-	    }
+		if (!exists) {
+			// SENDING POST REQUEST TO MLAB
+			var http = new XMLHttpRequest();
+			var url = "https://api.mlab.com/api/1/databases/happidays/collections/testing?apiKey=" + myKey;
+			var postData = JSON.stringify( {userid: userid, description: data, date: new Date(), rating: 0} );
+			http.open("POST", url, true);
+			http.setRequestHeader("Content-type", "application/json");
+			http.onreadystatechange = function() { //Call a function when the state changes.
+			    if(http.readyState == 4 && http.status == 200) {
+	    			getUserData();
+			    }
+			}
+			http.send(postData);
+
+		}
+	  }
 	}
-	http.send(postData);
+	xhr.send();
 }
+
 
 // Fetches data from remote db and displays most recent ones
 function getUserData() {
@@ -155,8 +170,9 @@ function addRating(num) {
 		  type: "PUT",
 		  contentType: "application/json" } );
 
-		getCommunityData();
-		console.log("our elememnt is", elementToAddRating.description);
+
+		//getCommunityData();
+		console.log("our elememnt is", elementToAddRating.rating);
 
 	  }
 	}
