@@ -17,8 +17,10 @@ input {border : 1px solid #fff;margin:0; font-size:60px; }
 
 
 body {
-  background-image: url("https://picsum.photos/1000/500/?random");
-  background-repeat: no-repeat;;
+  background-image: url("https://picsum.photos/1000/500/?random"); 
+  
+  /*background-image: : url("dog.jpg"); */
+  background-repeat: no-repeat;
   background-size: cover;
 
 }
