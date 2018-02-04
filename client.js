@@ -62,12 +62,36 @@ $(document).ready(function(){
     // Add rating when like
     $("button").click(function(){
     	var elementID = $(this).prev().attr('id');
-    	for (var i = 0; i < 5; i++) {
+    	var i;
+    	for (i = 0; i < 5; i++) {
     		if (elementID == com_cards[i]) {
     			addRating(i);
+    			break;
     		}
     	}
+
     });
+
+    // Updating points after click on happy face
+    $("#b1").click(function(){
+		$("#b1").replaceWith("<p> 131 happiPoints </p>");
+	});
+
+    $("#b2").click(function(){
+		$("#b2").replaceWith("<p> 21 happiPoints </p>");
+	});
+
+    $("#b3").click(function(){
+		$("#b3").replaceWith("<p> 34 happiPoints </p>");
+	});
+
+    $("#b4").click(function(){
+		$("#b4").replaceWith("<p> 2 happiPoints </p>");
+	});
+
+	$("#b5").click(function(){
+		$("#b5").replaceWith("<p> 7 happiPoints </p>");
+	});
 
 
 });
