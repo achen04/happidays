@@ -37,7 +37,14 @@ input:focus {
 button:focus {
     outline:none !important;
 }
+/*
+.card-text {
+  padding-bottom: 10px;
+}
 
+.card-btn {
+  padding-top: 10px;
+}*/
 
 .card {
   border-radius: 10px !important;

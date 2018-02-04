@@ -170,6 +170,7 @@ function addRating(num) {
 		  type: "PUT",
 		  contentType: "application/json" } );
 
+
 		//getCommunityData();
 		console.log("our elememnt is", elementToAddRating.rating);
 
