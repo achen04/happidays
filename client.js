@@ -42,7 +42,7 @@ function parseDate(date1) {
 	return (new Date(date1).toString()).split(/\s+/).slice(0,3).join(" ");
 }
 
-
+// Displaying most recent user data
 function displayUserData(data) {
 	if (data.length > 0) {
 		document.getElementById('card1').innerHTML = data[0].description;
@@ -71,8 +71,29 @@ function displayUserData(data) {
 
 }
 
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+
+// Display random community posts
 function displayCommunityData(data) {
-	console.log("-=-=-=-=", data);
+	data = shuffle(data); // Randomize community posts that are displayed
 	if (data.length > 0) {
 		document.getElementById('com_card1').innerHTML = "\"" + data[0].description + "\"";
 		// document.getElementById('com_card1_date').innerHTML = parseDate(data[0].date);
