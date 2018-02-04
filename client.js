@@ -27,10 +27,6 @@ $(document).ready(function(){
 
 });
 
-
-
-
-
 function clientSubmit() {
 	var data = document.getElementById("textData").value;
 	// console.log(data);
@@ -76,11 +72,14 @@ function displayCommunityData(data) {
 	if (data.length > 0) {
 		document.getElementById('com_card1').innerHTML = "\"" + data[0].description + "\"";
 		// document.getElementById('com_card1_date').innerHTML = parseDate(data[0].date);
+		console.log(data[0].rating);
 	}
 
 	if (data.length > 1) {
 		document.getElementById('com_card2').innerHTML = "\"" +  data[1].description + "\"";
 		// document.getElementById('com_card2_date').innerHTML = parseDate(data[1].date);
+		console.log(data[1].rating);
+
 	}
 
 	if (data.length > 2) {
@@ -97,7 +96,4 @@ function displayCommunityData(data) {
 		document.getElementById('com_card5').innerHTML = "\"" + data[4].description + "\"";
 		// document.getElementById('com_card5_date').innerHTML = parseDate(data[4].date);
 	}
-
-
-
 }
