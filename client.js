@@ -4,6 +4,7 @@ document.getElementById("textData").addEventListener("blur", clientSubmit);
 });
 
 
+
 // txt is the text to measure, font is the full CSS font declaration,
 // e.g. "bold 12px Verdana"
 function measureText(txt, font) {

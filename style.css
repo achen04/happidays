@@ -37,8 +37,8 @@ img:hover {
 
 
 body {
-  background-image: url("https://picsum.photos/1000/500/?random"); 
-  
+  background-image: url("https://picsum.photos/1000/500/?image=869"); 
+
   /*background-image: : url("dog.jpg"); */
   background-repeat: no-repeat;
   background-size: cover;
